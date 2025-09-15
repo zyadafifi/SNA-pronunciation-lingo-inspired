@@ -627,6 +627,19 @@
 
     <!-- Additional Enhancement Scripts -->
     <script>
+      // iOS Viewport Height Fix
+      function setViewportHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+
+      // Set viewport height on load and resize
+      setViewportHeight();
+      window.addEventListener("resize", setViewportHeight);
+      window.addEventListener("orientationchange", function () {
+        setTimeout(setViewportHeight, 100);
+      });
+
       // Enhanced Touch Support
       document.addEventListener("DOMContentLoaded", function () {
         // Add touch feedback for all interactive elements

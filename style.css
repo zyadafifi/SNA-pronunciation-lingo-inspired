@@ -2081,7 +2081,7 @@ body {
 /* Replay Button - Positioned as overlay on video, above practice overlay */
 .mobile-replay-overlay {
   position: fixed;
-  bottom: 280px; /* Reduced from 350px to close the gap */
+  bottom: 380px !important; /* Reduced from 350px to close the gap */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1050;

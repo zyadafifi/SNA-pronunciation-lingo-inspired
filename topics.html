@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topics - Pronunciation Master</title>
+    <link rel="stylesheet" href="topics-styles.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body class="topics-page">
+    <!-- Gaming Background Canvas -->
+    <canvas id="gamingBackground"></canvas>
+
+    <!-- Header (Desktop only) -->
+    <header class="header">
+      <div class="header-content">
+        <div class="back-button" id="backButton">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="app-title">
+          <div class="app-icon">
+            <i class="fas fa-microphone"></i>
+          </div>
+          <h1>Pronunciation Master</h1>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+      <!-- Lesson Header -->
+      <div class="lesson-header" id="lessonHeader">
+        <div class="lesson-header-back-button" id="lessonBackButton">
+          <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="lesson-header-content">
+          <h2 id="lessonTitle">Lesson 1</h2>
+          <p id="lessonSubtitle">Introduction & Basic Greetings</p>
+          <div class="lesson-progress">
+            <span id="lessonProgress">0% Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topics Container -->
+      <div class="topics-container" id="topicsContainer">
+        <div class="loading-indicator" id="loadingIndicator">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Loading topics...</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 Pronunciation Master. All rights reserved.</p>
+    </footer>
+
+    <!-- Progress Manager Script -->
+    <script src="progress-manager.js"></script>
+    <!-- Gaming Background Script -->
+    <script src="gaming-background.js"></script>
+    <!-- Topics Script -->
+    <script src="topics.js"></script>
+
+    <script>
+      // Initialize gaming background when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof GamingBackground !== "undefined") {
+          new GamingBackground();
+        }
+      });
+    </script>
+  </body>
+</html>

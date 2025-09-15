@@ -1,0 +1,653 @@
+:root {
+  --sna-primary: #63a29b;
+  --sna-secondary: #275151;
+  --sna-primary-light: #8abdb7;
+  --sna-primary-lighter: #b1d7d3;
+  --sna-secondary-dark: #1c3c3c;
+
+  --text-dark: #2c3e50;
+  --text-light: #ffffff;
+  --text-muted: #6c757d;
+
+  --background-light: #f4f7f6;
+  --background-white: #ffffff;
+  --border-light: #e9ecef;
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--sna-primary) 0%,
+    var(--sna-secondary) 100%
+  );
+  --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+
+  --shadow-sm: 0 2px 4px
+    rgba(
+      0,
+      0,
+      0,
+      0lesson-subtitle {font-size: 0.9rem; color: var(--text-muted) ; margin: 0;
+        padding: 0; align-self: flex-start; width: 100%;} .lesson-arrow {font-size:
+        1.2rem; color: var(--text-dark) ; transition: color 0.3s ease; flex-shrink:
+        0;} /* Alternate positioning for left and right */ .lesson-node.left {flex-direction:
+        row;} .lesson-node.right {flex-direction: row-reverse;}
+        .lesson-node.right .lesson-info {text-align: right;} .lesson-node.right
+        .lesson-content {align-items: flex-end;} /* No Results Message */
+        .no-results {text-align: center; padding: 4rem 2rem; color: var(
+          --text-muted
+        ) ;} .no-results i {font-size: 3rem; margin-bottom: 1rem; color: var(
+          --sna-primary-light
+        ) ;} .no-results h3 {margin-bottom: 0.5rem;} /* Footer */ .footer {background:
+        var(--gradient-primary) ; color: white; text-align: center; padding: 1.5rem;
+        margin-top: auto;} .footer p {margin: 0; font-size: 0.9rem;}
+        /* Topics Page Styles */ .lesson-header {background: var(
+          --gradient-card
+        ) ; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow:
+        var(--shadow-sm) ; text-align: center;} .lesson-header h2 {font-size: 2rem;
+        font-weight: 700; color: var(--text-dark) ; margin-bottom: 0.5rem;}
+        .lesson-subtitle {font-size: 1.1rem; color: var(--text-muted) ; margin-bottom:
+        1rem;} .lesson-progress {font-size: 0.9rem; color: var(--sna-primary) ; font-weight:
+        600;} .topics-container {display: flex; flex-direction: column; gap: 1.5rem;
+        max-width: 800px; margin: 0 auto; padding: 0 1rem;} .topic-card {background:
+        var(--background-white) ; border-radius: 16px; box-shadow: var(
+          --shadow-sm
+        ) ; overflow: hidden; transition: all 0.3s ease; cursor: pointer;}
+        .topic-card: hover {transform: translateY(-2px) ; box-shadow: 0 8px 25px
+        rgba(0, 0, 0, 0.1) ;} .topic-card.locked {opacity: 0.6; cursor: not-allowed;}
+        .topic-card.completed {border-left: 4px solid var(--sna-primary) ;}
+        .topic-card.available {border-left: 4px solid var(--sna-primary-light) ;}
+        .topic-header {display: flex; align-items: center; padding: 1.5rem; gap:
+        1rem;} .topic-icon {width: 50px; height: 50px; border-radius: 12px; background:
+        var(--gradient-primary) ; display: flex; align-items: center; justify-content:
+        center; color: white; font-size: 1.2rem; flex-shrink: 0;} .topic-info {flex:
+        1;} .topic-title {font-size: 1.3rem; font-weight: 600; color: var(
+          --text-dark
+        ) ; margin: 0 0 0.5rem 0;} .topic-description {font-size: 0.9rem; color:
+        var(--text-muted) ; margin: 0;} .topic-actions {display: flex; align-items:
+        center; gap: 0.5rem;} .arrow-icon {font-size: 1.2rem; color: var(
+          --text-dark
+        ) ; transition: transform 0.3s ease;} .lock-icon {font-size: 1.2rem; color:
+        var(--text-muted) ;} .topic-content {padding: 0 1.5rem 1.5rem 1.5rem; display:
+        none;} .conversations-header {margin-bottom: 1rem;} .conversations-count
+        {font-size: 0.9rem; color: var(--text-muted) ; font-weight: 600;}
+        .conversations-list {display: flex; flex-direction: column; gap: 0.75rem;
+        margin-bottom: 1.5rem;} .conversation-item {display: flex; align-items: center;
+        padding: 1rem; background: var(--background-light) ; border-radius: 12px;
+        cursor: pointer; transition: all 0.3s ease; gap: 1rem;}
+        .conversation-item: hover {background: var(--sna-primary-lighter) ; transform:
+        translateX(4px) ;} .conversation-icon {width: 40px; height: 40px; border-radius:
+        8px; background: var(--sna-primary) ; display: flex; align-items: center;
+        justify-content: center; color: white; font-size: 1rem; flex-shrink: 0;}
+        .conversation-info {flex: 1;} .conversation-title {font-size: 1rem; font-weight:
+        600; color: var(--text-dark) ; margin: 0 0 0.25rem 0;}
+        .conversation-description {font-size: 0.85rem; color: var(--text-muted) ;
+        margin: 0;} .conversation-status {display: flex; align-items: center;}
+        .completed-icon {color: var(--sna-primary) ; font-size: 1.2rem;}
+        .play-icon {color: var(--text-muted) ; font-size: 1.2rem;}
+        .topic-progress {display: flex; align-items: center; gap: 1rem;}
+        .progress-bar {flex: 1; height: 8px; background: var(--background-light)
+        ; border-radius: 4px; overflow: hidden;} .progress-fill {height: 100%; background:
+        var(--gradient-primary) ; border-radius: 4px; transition: width 0.3s ease;}
+        .progress-text {font-size: 0.85rem; color: var(--text-muted) ; font-weight:
+        600; min-width: 60px;} .no-topics {text-align: center; padding: 3rem; color:
+        var(--text-muted) ; font-size: 1.1rem;}
+        /* Topics Page Specific Styles */ body.topics-page {background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        ) ; min-height: 100vh; font-family: "Nunito",
+      sans-serif; position: relative;} body.topics-page: : before {content: "" ;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at 40% 60%,
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at 60% 40%,
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+        circle at 10% 90%,
+        rgba(255, 255, 255, 0.08) 1px,
+        transparent 1px
+      ),
+      radial-gradient(
+          circle at 90% 10%,
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        )
+        ; background-size: 50px 50px,
+      80px 80px,
+      60px 60px,
+      70px 70px,
+      40px 40px,
+      30px 30px; z-index: 1; pointer-events: none;} body.topics-page .main-container
+        {padding: 2rem 1rem; max-width: 1200px; margin: 0 auto; position:
+        relative; z-index: 10; min-height: calc(100vh - 200px) ;} body.topics-page
+        .lesson-header {background: white; border-radius: 16px; padding: 2rem;
+        margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) ;
+        text-align: center; position: relative; z-index: 10; display: flex;
+        flex-direction: column; align-items: center; gap: 0.5rem;} body.topics-page
+        .lesson-header h2 {font-size: 2rem; font-weight: 700; color: #2c3e50;
+        margin: 0;} body.topics-page .lesson-subtitle {font-size: 1.1rem; color:
+        #6c757d; margin: 0;} body.topics-page .lesson-progress {font-size:
+        0.9rem; color: #63a29b; font-weight: 600; margin: 0;} body.topics-page .topics-container
+        {display: flex; flex-direction: column; gap: 1.5rem; max-width: 800px;
+        margin: 0 auto; padding: 0 1rem; position: relative; z-index: 10;} body.topics-page
+        .topic-card {background: white; border-radius: 16px; box-shadow: 0 4px
+        20px rgba(0, 0, 0, 0.1) ; overflow: hidden; transition: all 0.3s ease;
+        cursor: pointer; position: relative; z-index: 10; margin-bottom: 1rem;} body.topics-page
+        .topic-card: hover {transform: translateY(-2px) ; box-shadow: 0 8px 25px
+        rgba(0, 0, 0, 0.15) ;} body.topics-page .topic-card.locked {opacity:
+        0.6; cursor: not-allowed;} body.topics-page .topic-card.completed {border-left:
+        4px solid #63a29b;} body.topics-page .topic-card.available {border-left:
+        4px solid #8abdb7;} body.topics-page .topic-header {display: flex;
+        align-items: center; padding: 1.5rem; gap: 1rem; position: relative;} body.topics-page
+        .topic-icon {width: 50px; height: 50px; border-radius: 12px; background:
+        linear-gradient(135deg, #63a29b 0%, #275151 100%) ; display: flex;
+        align-items: center; justify-content: center; color: white; font-size:
+        1.2rem; flex-shrink: 0; position: relative; z-index: 1;} body.topics-page
+        .topic-info {flex: 1; position: relative; z-index: 1;} body.topics-page .topic-title
+        {font-size: 1.3rem; font-weight: 600; color: #2c3e50; margin: 0 0 0.5rem
+        0; position: relative; z-index: 1;} body.topics-page .topic-description {font-size:
+        0.9rem; color: #6c757d; margin: 0; position: relative; z-index: 1;} body.topics-page
+        .topic-actions {display: flex; align-items: center; gap: 0.5rem;
+        position: relative; z-index: 1;} body.topics-page .arrow-icon {font-size:
+        1.2rem; color: #2c3e50; transition: transform 0.3s ease; position:
+        relative; z-index: 1;} body.topics-page .lock-icon {font-size: 1.2rem;
+        color: #6c757d; position: relative; z-index: 1;} body.topics-page .topic-content
+        {padding: 0 1.5rem 1.5rem 1.5rem; display: block; position: relative;
+        z-index: 1;} body.topics-page .conversations-header {margin-bottom:
+        1rem; position: relative; z-index: 1;} body.topics-page .conversations-count
+        {font-size: 0.9rem; color: #6c757d; font-weight: 600; position:
+        relative; z-index: 1;} body.topics-page .conversations-list {display:
+        flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;
+        position: relative; z-index: 1;} body.topics-page .conversation-item {display:
+        flex; align-items: center; padding: 1rem; background: #f4f7f6;
+        border-radius: 12px; cursor: pointer; transition: all 0.3s ease; gap:
+        1rem; position: relative; z-index: 1;} body.topics-page .conversation-item:
+        hover {background: #b1d7d3; transform: translateX(4px) ;} body.topics-page
+        .conversation-icon {width: 40px; height: 40px; border-radius: 8px;
+        background: #63a29b; display: flex; align-items: center; justify-content:
+        center; color: white; font-size: 1rem; flex-shrink: 0; position:
+        relative; z-index: 1;} body.topics-page .conversation-info {flex: 1;
+        position: relative; z-index: 1;} body.topics-page .conversation-title {font-size:
+        1rem; font-weight: 600; color: #2c3e50; margin: 0 0 0.25rem 0; position:
+        relative; z-index: 1;} body.topics-page .conversation-description {font-size:
+        0.85rem; color: #6c757d; margin: 0; position: relative; z-index: 1;} body.topics-page
+        .conversation-status {display: flex; align-items: center; position:
+        relative; z-index: 1;} body.topics-page .completed-icon {color: #63a29b;
+        font-size: 1.2rem; position: relative; z-index: 1;} body.topics-page .play-icon
+        {color: #6c757d; font-size: 1.2rem; position: relative; z-index: 1;} body.topics-page
+        .topic-progress {display: flex; align-items: center; gap: 1rem; position:
+        relative; z-index: 1;} body.topics-page .progress-bar {flex: 1; height:
+        8px; background: #f4f7f6; border-radius: 4px; overflow: hidden; position:
+        relative; z-index: 1;} body.topics-page .progress-fill {height: 100%;
+        background: linear-gradient(135deg, #63a29b 0%, #275151 100%) ;
+        border-radius: 4px; transition: width 0.3s ease; position: relative;
+        z-index: 1;} body.topics-page .progress-text {font-size: 0.85rem; color:
+        #6c757d; font-weight: 600; min-width: 60px; position: relative; z-index:
+        1;} body.topics-page .no-topics {text-align: center; padding: 3rem;
+        color: #6c757d; font-size: 1.1rem; background: white; border-radius:
+        16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) ; position: relative;
+        z-index: 1;} body.topics-page .loading-indicator {text-align: center;
+        padding: 3rem; color: #6c757d; font-size: 1.1rem; background: white;
+        border-radius: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) ;
+        position: relative; z-index: 1;} body.topics-page .loading-indicator i {font-size:
+        2rem; color: #63a29b; margin-bottom: 1rem; position: relative; z-index:
+        1;} body.topics-page .header {background: transparent; position:
+        relative; z-index: 100; width: 100%;} body.topics-page .header-content {display:
+        flex; align-items: center; justify-content: space-between; padding: 1rem
+        2rem; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;}
+        body.topics-page .back-button {background: rgba(255, 255, 255, 0.1) ;
+        border: none; border-radius: 50%; width: 40px; height: 40px; display:
+        flex; align-items: center; justify-content: center; color: white; cursor:
+        pointer; transition: all 0.3s ease; position: relative; z-index: 1;} body.topics-page
+        .back-button: hover {background: rgba(255, 255, 255, 0.2) ; transform:
+        scale(1.05) ;} body.topics-page .app-title {display: flex; align-items:
+        center; gap: 1rem; color: white; position: relative; z-index: 1;} body.topics-page
+        .app-icon {width: 40px; height: 40px; background:
+        linear-gradient(135deg, #63a29b 0%, #275151 100%) ; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; color:
+        white; font-size: 1.2rem; position: relative; z-index: 1;} body.topics-page
+        .app-title h1 {font-size: 1.5rem; font-weight: 700; margin: 0; position:
+        relative; z-index: 1;} body.topics-page .footer {background:
+        transparent; color: white; text-align: center; padding: 1.5rem;
+        margin-top: auto; position: relative; z-index: 10; width: 100%;} body.topics-page
+        .footer p {margin: 0; font-size: 0.9rem; opacity: 0.6; position:
+        relative; z-index: 1;} /* Mobile Responsive Design - Alternating Layout with Safe Boundaries */
+        @media (max-width: 768px) {/* Hide header on mobile */ .header {display:
+        none !important;} /* Mobile lessons container with safe margins */
+        .lessons-path-container {padding: 1rem 0.5rem; /* Reduced horizontal padding to maximize space */
+        min-height: 1200px; overflow-x: hidden; /* Prevent horizontal scroll */}
+        /* Main container adjustments */ .main-container {padding: 1rem 0; /* Remove horizontal padding to maximize width */
+        width: 100%; max-width: 100vw; /* Ensure full viewport width usage */}
+        /* Mobile lesson nodes - maintain alternating left/right layout with safe positioning */
+        .lesson-node {display: flex; align-items: center; gap: 0.75rem; /* Slightly reduced gap */
+        max-width: calc(100vw - 40px) ; /* Ensure nodes don't exceed viewport */}
+        /* Maintain left/right alternating pattern on mobile */
+        .lesson-node.left {flex-direction: row;} .lesson-node.right {flex-direction:
+        row-reverse;} .lesson-node.right .lesson-info {text-align: right;}
+        .lesson-node.right .lesson-content {align-items: flex-end;}
+        /* Mobile circle sizes */ .lesson-circle {width: 70px; height: 70px; flex-shrink:
+        0; /* Prevent circle from shrinking */} .lesson-avatar {width: 50px; height:
+        50px;} /* Mobile lesson info adjustments with responsive width */
+        .lesson-info {min-width: 140px; max-width: calc(50vw - 55px) ; /* Responsive max width based on viewport */
+        flex-shrink: 1; /* Allow text to shrink if needed */} .lesson-title {font-size:
+        0.95rem; font-weight: 700; margin-bottom: 0.2rem; white-space: nowrap; overflow:
+        hidden; text-overflow: ellipsis; line-height: 1.2;} .lesson-subtitle {font-size:
+        0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height:
+        1.2;} /* Enhanced mobile path styling with safe boundaries */
+        .lesson-path {stroke-width: 3; /* Slightly thinner for better mobile performance */}
+        /* SVG container adjustments */ .lessons-path-svg {width: 100%; height: 100%;
+        overflow: visible; /* Allow paths to be visible even at edges */}} @media
+        (max-width: 480px) {/* Very small screen adjustments with enhanced safe boundaries */
+        .header {display: none !important;} .main-container {padding: 1rem 0; /* Remove horizontal padding */
+        width: 100%; max-width: 100vw;}
+        /* Extra small screen lessons container */ .lessons-path-container {padding:
+        1rem 0.25rem; /* Minimal horizontal padding */ min-height: 1400px; overflow-x:
+        hidden;} /* Extra small screen lesson adjustments */ .lesson-circle {width:
+        60px; height: 60px;} .lesson-avatar {width: 40px; height: 40px;}
+        /* Very compact lesson info for small screens */ .lesson-info {min-width:
+        120px; max-width: calc(45vw - 40px) ; /* Even more compact for very small screens */
+        gap: 0.5rem;} .lesson-node {gap: 0.5rem; /* Reduced gap for small screens */
+        max-width: calc(100vw - 20px) ; /* Tighter boundary */} .lesson-title {font-size:
+        0.9rem; font-weight: 700; margin-bottom: 0.15rem; white-space: nowrap; overflow:
+        hidden; text-overflow: ellipsis; line-height: 1.1;} .lesson-subtitle {font-size:
+        0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        line-height: 1.1;}
+        /* Optimized path visibility for very small screens */ .lesson-path {stroke-width:
+        3; /* Slightly thinner for performance */}
+        /* Smaller checkmark for very small screens */ .lesson-checkmark {width:
+        24px; height: 24px; font-size: 0.7rem; bottom: -3px; right: -3px;}} /* Additional mobile-specific curve enhancements */
+        @media (max-width: 768px) {/* Ensure smooth path animations on mobile */
+        .lesson-path.completed {stroke: var(--sna-primary) ; stroke-dasharray: none;
+        animation: drawPath 0.8s ease-out;} .lesson-path.incomplete {stroke: var(
+          --text-muted
+        ) ; stroke-dasharray: 15,
+      8; /* Adjusted dash pattern for mobile */}}
+        /* Path drawing animation for completed lessons */ @keyframes drawPath {from
+        {stroke-dasharray: 1000; stroke-dashoffset: 1000;} to {stroke-dasharray:
+        none; stroke-dashoffset: 0;}}1
+    );
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-primary: 0 10px 30px rgba(99, 162, 155, 0.2),
+    0 5px 15px rgba(99, 162, 155, 0.1);
+
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 18px;
+  --radius-full: 50%;
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gaming Background Canvas */
+.gaming-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* Gaming background effects */
+body {
+  background: #0f0f23;
+  overflow-x: hidden;
+}
+
+/* Ensure header is completely hidden on mobile */
+@media (max-width: 768px) {
+  .header {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-container {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
+  }
+}
+
+/* Add some glow effects to main content */
+.main-container {
+  position: relative;
+  z-index: 1;
+}
+
+.lessons-path-container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Styles */
+.header {
+  background: var(--gradient-primary);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Styles */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 40px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(99, 162, 155, 0.3);
+}
+
+.app-title h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+/* Main Container */
+.main-container {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Path-based Lessons Container */
+.lessons-path-container {
+  position: relative;
+  min-height: 800px;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* SVG Path Container */
+.lessons-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.lesson-path {
+  fill: none;
+  stroke-width: 3;
+  transition: stroke 0.3s ease;
+  z-index: 1;
+}
+
+.lesson-path.completed {
+  stroke: var(--sna-primary);
+  stroke-dasharray: none;
+}
+
+.lesson-path.incomplete {
+  stroke: var(--text-muted);
+  stroke-dasharray: 10, 5;
+}
+
+/* Lesson Node Styles */
+.lesson-node {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+/* Lesson Circle */
+.lesson-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.lesson-circle.completed {
+  background: var(--gradient-primary);
+  border: 4px solid var(--sna-primary-light);
+  box-shadow: var(--shadow-primary);
+}
+
+.lesson-circle.in-progress {
+  background: var(--background-white);
+  border: 4px solid var(--sna-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.lesson-circle.locked {
+  background: #f8f9fa;
+  border: 4px solid #dee2e6;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lesson-circle.current {
+  animation: pulse 2s infinite;
+  border-color: #7c3aed;
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(124, 58, 237, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+  }
+}
+
+/* Lesson Avatar */
+.lesson-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-full);
+  background-color: #ddd;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid white;
+}
+
+.lesson-circle.locked .lesson-avatar {
+  filter: grayscale(100%);
+}
+
+/* Lesson Icon for lessons without avatar */
+.lesson-icon {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.lesson-circle.locked .lesson-icon {
+  color: var(--text-muted);
+}
+
+/* Checkmark for completed lessons */
+.lesson-checkmark {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 28px;
+  height: 28px;
+  background: #22c55e;
+  border: 3px solid white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Lesson Info Panel - Now styled as simple text with arrow */
+.lesson-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.lesson-info:hover .lesson-title,
+.lesson-info:hover .lesson-arrow {
+  color: var(--sna-primary);
+}
+
+.lesson-info.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lesson-info.locked:hover .lesson-title,
+.lesson-info.locked:hover .lesson-arrow {
+  color: var(--text-muted);
+}
+
+.lesson-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lesson-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+  margin-left: 0;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-right: 0;
+  padding: 0;
+  transition: color 0.3s ease;
+  align-self: flex-start;
+  width: 100%;
+}
+
+/* Lesson Subtitle */
+.lesson-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+  width: 100%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Lesson Arrow */
+.lesson-arrow {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Extra small screens (320px and below) */
+@media (max-width: 320px) {
+  .header {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-container {
+    margin-top: 0 !important;
+    padding-top: 0.5rem !important;
+  }
+}

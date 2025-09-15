@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronunciation Master - Lessons</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Gaming Background Canvas -->
+    <canvas id="gamingBackground" class="gaming-background"></canvas>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="app-title">
+          <div class="app-icon">
+            <i class="fas fa-microphone"></i>
+          </div>
+          <h1>Pronunciation Master</h1>
+        </div>
+        <!-- Logo added here -->
+        <div class="logo-container">
+          <!-- <img src="sna-logo.png" alt="Pronunciation Master Logo" class="navbar-logo"> -->
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+      <!-- Path-based Lessons Container -->
+      <div class="lessons-path-container" id="lessonsContainer">
+        <!-- Lessons will be dynamically inserted here with SVG paths -->
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Â© 2025 Pronunciation Master. All rights reserved.</p>
+    </footer>
+
+    <!-- Progress Manager Script - Load First -->
+    <script src="progress-manager.js"></script>
+    <!-- Gaming Background Script -->
+    <script src="gaming-background.js"></script>
+    <!-- Main Script -->
+    <script src="script.js"></script>
+  </body>
+</html>

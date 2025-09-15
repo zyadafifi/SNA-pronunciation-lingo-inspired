@@ -148,6 +148,43 @@ let soundEffects = {
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+// iOS video audio handling
+let hasUserInteracted = false;
+let iosAudioOverlay;
+
+// Function to enable video audio on iOS after user interaction
+function enableVideoAudio() {
+  if (isIOS && mobileLessonVideo) {
+    mobileLessonVideo.muted = false;
+    mobileLessonVideo.volume = 1.0;
+    hasUserInteracted = true;
+
+    // Hide the audio overlay
+    if (iosAudioOverlay) {
+      iosAudioOverlay.style.display = "none";
+    }
+
+    // Try to play the video again with sound if it's currently playing
+    if (!mobileLessonVideo.paused) {
+      mobileLessonVideo.currentTime = mobileLessonVideo.currentTime; // Trigger reload
+    }
+  }
+}
+
+// Function to show iOS audio overlay
+function showIOSAudioOverlay() {
+  if (isIOS && iosAudioOverlay && !hasUserInteracted) {
+    iosAudioOverlay.style.display = "flex";
+  }
+}
+
+// Function to hide iOS audio overlay
+function hideIOSAudioOverlay() {
+  if (iosAudioOverlay) {
+    iosAudioOverlay.style.display = "none";
+  }
+}
+
 // Constants for recording
 const RECORDING_DURATION = 5000; // 5 seconds recording time
 let recordingTimeout;
@@ -421,6 +458,13 @@ function setupMobileDialogIntegration() {
         : "";
       const missingWords = missingWordDiv ? missingWordDiv.textContent : "";
 
+      // Play sound effects for mobile (same as desktop)
+      if (score > 50) {
+        playSoundEffect("success");
+      } else {
+        playSoundEffect("failure");
+      }
+
       // Show mobile dialog
       showMobileDialog(score, recognizedText, missingWords);
 
@@ -511,6 +555,14 @@ function initializeMobileLayout() {
   const desktopContainer = document.querySelector(".desktop-container");
   if (desktopContainer) {
     desktopContainer.style.display = "none";
+  }
+
+  // Initialize iOS audio overlay
+  iosAudioOverlay = document.getElementById("iosAudioOverlay");
+  if (iosAudioOverlay) {
+    iosAudioOverlay.addEventListener("click", function () {
+      enableVideoAudio();
+    });
   }
 
   // Wait for lessons to load, then setup mobile
@@ -4203,6 +4255,7 @@ function setupMobileSpecificListeners() {
   if (mobileListenSlowBtn) {
     mobileListenSlowBtn.addEventListener("click", function (e) {
       e.stopPropagation();
+      enableVideoAudio(); // Enable video audio on user interaction
       playMobileRecordedAudioSlow();
     });
   }
@@ -4214,7 +4267,34 @@ function setupMobileSpecificListeners() {
   if (mobileListenResultBtn) {
     mobileListenResultBtn.addEventListener("click", function (e) {
       e.stopPropagation();
+      enableVideoAudio(); // Enable video audio on user interaction
       mobileSpeakSentenceFromDialog();
+    });
+  }
+
+  // Listen button in practice overlay
+  const mobileListenBtn = document.getElementById("mobileListenBtn");
+  if (mobileListenBtn) {
+    mobileListenBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      enableVideoAudio(); // Enable video audio on user interaction
+      mobileSpeakSentence();
+    });
+  }
+
+  // Microphone button interaction
+  const mobileMicBtn = document.getElementById("mobileMicBtn");
+  if (mobileMicBtn) {
+    mobileMicBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      enableVideoAudio(); // Enable video audio on user interaction
+    });
+  }
+
+  // Video click to enable audio
+  if (mobileLessonVideo) {
+    mobileLessonVideo.addEventListener("click", function (e) {
+      enableVideoAudio();
     });
   }
 
@@ -4522,25 +4602,45 @@ async function playVideoWithSubtitles() {
 
     // Reset video and play
     mobileLessonVideo.currentTime = 0;
-    mobileLessonVideo.muted = false;
 
-    // Attempt to play with sound
-    await mobileLessonVideo.play();
+    // For iOS, we need to handle audio differently
+    if (isIOS) {
+      // On iOS, check if user has interacted
+      if (hasUserInteracted) {
+        mobileLessonVideo.muted = false;
+        mobileLessonVideo.volume = 1.0;
+        hideIOSAudioOverlay();
+      } else {
+        // Start muted, will be enabled on user interaction
+        mobileLessonVideo.muted = true;
+        showIOSAudioOverlay();
+      }
 
-    console.log("Mobile video playing with subtitle system");
-  } catch (error) {
-    console.warn("Failed to play with sound, trying muted:", error);
+      try {
+        await mobileLessonVideo.play();
+        console.log("Mobile video playing on iOS");
+      } catch (playError) {
+        console.warn("iOS video play failed:", playError);
+        showMobileReplayButton();
+      }
+    } else {
+      // For other platforms, try with sound first
+      mobileLessonVideo.muted = false;
+      mobileLessonVideo.volume = 1.0;
 
-    // Fallback to muted playback
-    try {
-      mobileLessonVideo.muted = true;
-      await mobileLessonVideo.play();
-
-      console.log("Mobile video playing muted with subtitles");
-    } catch (mutedError) {
-      console.error("Failed to play video:", mutedError);
-      showMobileReplayButton();
+      try {
+        await mobileLessonVideo.play();
+        console.log("Mobile video playing with sound");
+      } catch (error) {
+        console.warn("Failed to play with sound, trying muted:", error);
+        mobileLessonVideo.muted = true;
+        await mobileLessonVideo.play();
+        console.log("Mobile video playing muted");
+      }
     }
+  } catch (error) {
+    console.error("Failed to play video:", error);
+    showMobileReplayButton();
   }
 }
 

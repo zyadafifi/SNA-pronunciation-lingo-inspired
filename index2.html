@@ -47,10 +47,20 @@
         id="mobileLessonVideo"
         playsinline
         preload="auto"
+        muted
+        webkit-playsinline
       >
         <source src="" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+
+      <!-- iOS Audio Enable Overlay -->
+      <div class="ios-audio-overlay" id="iosAudioOverlay" style="display: none">
+        <div class="ios-audio-content">
+          <i class="fas fa-volume-up"></i>
+          <p>Tap to enable audio</p>
+        </div>
+      </div>
 
       <!-- Simple Subtitle Container at Top -->
       <div class="subtitle-container" id="mobileSubtitleContainer">

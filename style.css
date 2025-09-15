@@ -2056,25 +2056,27 @@ body {
   }
 }
 
-/* Replay Button - Positioned as overlay on practice overlay */
+/* Replay Button - Positioned as overlay on video, above practice overlay */
 .mobile-replay-overlay {
-  position: absolute;
-  top: -60px;
+  position: fixed;
+  bottom: 350px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1030;
+  z-index: 1050;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .mobile-replay-overlay.show {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .mobile-replay-btn {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.596);
   border: 2px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: 14px;
@@ -3029,12 +3031,7 @@ body {
   }
 }
 
-/* Ensure replay button only shows when practice overlay is visible */
-.mobile-practice-overlay:not(.show) .mobile-replay-overlay {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
+/* Replay button visibility is now controlled by its own show class */
 
 /* iOS Audio Enable Overlay */
 .ios-audio-overlay {

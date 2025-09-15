@@ -2124,6 +2124,7 @@ body {
 .practice-card {
   padding: 32px 24px 24px;
   position: relative;
+  margin-top: 20px; /* Add margin to show it better */
 }
 
 .practice-header {

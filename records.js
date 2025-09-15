@@ -565,6 +565,12 @@ function initializeMobileLayout() {
     });
   }
 
+  // Ensure replay button is properly initialized
+  if (mobileReplayBtn && !mobileReplayBtn.hasAttribute("data-initialized")) {
+    mobileReplayBtn.addEventListener("click", handleMobileReplay);
+    mobileReplayBtn.setAttribute("data-initialized", "true");
+  }
+
   // Wait for lessons to load, then setup mobile
   if (lessons.length === 0) {
     const checkLessons = setInterval(() => {
@@ -706,6 +712,12 @@ function loadMobileContent() {
     mobileLessonVideo.src = currentSentence.videoSrc;
     mobileLessonVideo.load();
 
+    // Reset iOS audio state for new video
+    if (isIOS) {
+      hasUserInteracted = false;
+      hideIOSAudioOverlay();
+    }
+
     // Auto-start video with subtitles after loading
     setTimeout(() => {
       playVideoWithSubtitles();
@@ -750,7 +762,7 @@ function generatePhoneticText(text) {
 
 // Show mobile replay button (only when practice overlay is active)
 function showMobileReplayButton() {
-  if (mobileReplayOverlay && mobilePracticeActive) {
+  if (mobileReplayOverlay) {
     mobileReplayOverlay.classList.add("show");
   }
 }

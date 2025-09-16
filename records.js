@@ -142,6 +142,8 @@ let mobileRecording = false;
 let soundEffects = {
   success: null,
   failure: null,
+  mobileSuccess: null,
+  mobileFailure: null,
 };
 
 // Global detection
@@ -272,6 +274,43 @@ async function initializeSoundEffects() {
 
 // Initialize sound effects when the page loads
 window.addEventListener("DOMContentLoaded", initializeSoundEffects);
+
+// Initialize mobile-specific sound effects for iOS
+async function initializeMobileSoundEffects() {
+  if (!isMobile) return;
+
+  try {
+    // Create new audio instances for mobile
+    const mobileSuccessAudio = new Audio(
+      "https://raw.githubusercontent.com/zyadafifi/records_project/main/right%20answer%20SFX.wav"
+    );
+    const mobileFailureAudio = new Audio(
+      "https://raw.githubusercontent.com/zyadafifi/records_project/main/wrong%20answer%20SFX.wav"
+    );
+
+    // Set mobile-specific properties
+    mobileSuccessAudio.preload = "auto";
+    mobileFailureAudio.preload = "auto";
+
+    // Load the audio files
+    await Promise.all([mobileSuccessAudio.load(), mobileFailureAudio.load()]);
+
+    // Store mobile sound effects
+    soundEffects.mobileSuccess = mobileSuccessAudio;
+    soundEffects.mobileFailure = mobileFailureAudio;
+
+    console.log("Mobile sound effects initialized successfully");
+
+    // Add debug function for testing
+    window.testMobileSounds = function () {
+      console.log("Testing mobile sound effects...");
+      playSoundEffect("success");
+      setTimeout(() => playSoundEffect("failure"), 1000);
+    };
+  } catch (error) {
+    console.error("Error loading mobile sound effects:", error);
+  }
+}
 
 // ===== MOBILE DIALOG FUNCTIONS =====
 
@@ -582,6 +621,9 @@ function initializeMobileLayout() {
   } else {
     setupMobileContent();
   }
+
+  // Initialize mobile sound effects for iOS
+  initializeMobileSoundEffects();
 
   // Setup mobile event listeners
   setupMobileEventListeners();
@@ -1454,6 +1496,12 @@ async function startMobileRecording() {
       mobileMicBtn.classList.add("recording");
     }
 
+    // Initialize audio context for iOS on first user interaction
+    if (isIOS && (!audioContext || audioContext.state === "suspended")) {
+      await initializeAudioContext();
+      await resumeAudioContext();
+    }
+
     // Start the actual recording (reuse existing recording logic)
     await startAudioRecording();
 
@@ -1558,7 +1606,13 @@ function setupMobileEventListeners() {
   // Listen slow button - now handled by setupMobileSpecificListeners()
 
   if (mobileMicBtn) {
-    mobileMicBtn.addEventListener("click", function () {
+    mobileMicBtn.addEventListener("click", async function () {
+      // Initialize audio context for iOS on first user interaction
+      if (isIOS && (!audioContext || audioContext.state === "suspended")) {
+        await initializeAudioContext();
+        await resumeAudioContext();
+      }
+
       if (mobileRecording) {
         // Don't stop here - let the waveform container buttons handle it
         return;
@@ -4115,21 +4169,59 @@ if (typeof window !== "undefined") {
 
 // Function to play sound effects
 function playSoundEffect(type) {
-  if (!soundEffects[type]) return;
+  // Use mobile-specific sound effects when on mobile
+  const soundType = isMobile
+    ? `mobile${type.charAt(0).toUpperCase() + type.slice(1)}`
+    : type;
+  const sound = soundEffects[soundType];
 
+  if (!sound) {
+    console.warn(
+      `Sound effect ${soundType} not found, falling back to ${type}`
+    );
+    const fallbackSound = soundEffects[type];
+    if (!fallbackSound) {
+      console.error(`No sound effect available for ${type}`);
+      return;
+    }
+    return playAudio(fallbackSound, type);
+  }
+
+  return playAudio(sound, type);
+}
+
+// Helper function to play audio with iOS handling
+function playAudio(audio, type) {
   try {
-    Object.values(soundEffects).forEach((audio) => {
-      if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
+    // Pause all other sounds first
+    Object.values(soundEffects).forEach((sound) => {
+      if (sound && sound !== audio) {
+        sound.pause();
+        sound.currentTime = 0;
       }
     });
 
-    const sound = soundEffects[type];
-    sound.currentTime = 0;
-    sound.play().catch((error) => {
-      console.error(`Error playing ${type} sound:`, error);
-    });
+    audio.currentTime = 0;
+
+    // iOS-specific audio handling
+    if (isIOS) {
+      // Ensure audio context is resumed for iOS
+      if (audioContext && audioContext.state === "suspended") {
+        audioContext.resume().then(() => {
+          audio.play().catch((error) => {
+            console.error(`Error playing ${type} sound on iOS:`, error);
+          });
+        });
+      } else {
+        audio.play().catch((error) => {
+          console.error(`Error playing ${type} sound on iOS:`, error);
+        });
+      }
+    } else {
+      audio.play().catch((error) => {
+        console.error(`Error playing ${type} sound:`, error);
+      });
+    }
   } catch (error) {
     console.error("Error playing sound effect:", error);
   }
